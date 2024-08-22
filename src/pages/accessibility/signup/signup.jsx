@@ -1,9 +1,9 @@
 import { Input, Button, PasswordInput } from '@mantine/core';
-import healthcare from '../../public/assets/healthcare.webp';
-import logoHealthcare from '../../public/assets/logo_healthcare.webp';
-import './login.css';
+import healthcare from '../../../../public/assets/healthcare.webp';
+import logoHealthcare from '../../../../public/assets/logo_healthcare.webp';
+import '../login/login.css';
 
-const Login = () => {
+const Signup = () => {
   return (
     <div className="login">
       <div className="login__image">
@@ -14,9 +14,15 @@ const Login = () => {
           <img src={logoHealthcare} alt="Healthcare Logo" />
         </div>
         <div className="login__form-body">
-          <h1 className="login__form-title">Sign in</h1>
+          <h1 className="login__form-title">Sign up</h1>
           <div className="login__form-container">
             <div className="login__form-inputs">
+              <Input
+                className="input"
+                radius="xl"
+                placeholder="Email adress"
+                type='email'
+              />
               <Input
                 className="input"
                 radius="xl"
@@ -33,11 +39,11 @@ const Login = () => {
                 radius="xl"
                 fullWidth
               >
-                Sign In
+                Sign up
               </Button>
               <div className="login__form-links">
-                <p>Forgot your password? <a href="#">Click here</a></p>
-                <p>Don't have an account? <a href="#">Sign up</a></p>
+                <p>Forgot your password? <a href="/recover_password">Click here</a></p>
+                <p>Do you have an acount? <a href="/">Sign in</a></p>
               </div>
             </div>
           </div>
@@ -47,4 +53,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

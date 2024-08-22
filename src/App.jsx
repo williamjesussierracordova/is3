@@ -1,6 +1,8 @@
 import './App.css'
 import { Route, Routes } from "react-router-dom";
-import Login from './login/login';
+import Login from './pages/accessibility/login/login';
+import Signup from './pages/accessibility/signup/signup';
+import RecoverPassword from './pages/accessibility/recoverPassword/recoverPassword';
 
 function App() {
 
@@ -8,7 +10,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login/>} />
-        <Route path="/about" element={<h1>About</h1>} />
+        <Route path="/register" element={<Signup/>}/>
+        <Route path="/recover_password" element={<RecoverPassword/>}/>
       </Routes>
     </>
   )
