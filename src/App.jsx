@@ -4,6 +4,7 @@ import Login from './pages/accessibility/login/login';
 import Signup from './pages/accessibility/signup/signup';
 import RecoverPassword from './pages/accessibility/recoverPassword/recoverPassword';
 import Home from './pages/home/page/inicio';
+import ContactPage from './pages/contact/contact';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/register" element={<Signup/>}/>
         <Route path="/recover_password" element={<RecoverPassword/>}/>
         <Route path="/home" element={<Home/>}/>
+        <Route path='/contact' element={<ContactPage />} />
       </Routes>
     </>
   )
