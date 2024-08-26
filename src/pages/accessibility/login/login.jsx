@@ -9,7 +9,8 @@ import { getFirebaseAuth } from '../../../firebase/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { readUser } from '../../../firebase/userController';
-
+import bcryptjs from 'bcryptjs'
+import { Loader } from '@mantine/core';
 
 const auth = getFirebaseAuth();
 
@@ -23,6 +24,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
@@ -64,28 +66,40 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     let userData = await readUser(formData.medicalCode);
     console.log(userData);
     if(!userData){
+      setIsLoading(false);
       setLoginError("You are not registered in the system, please sign up");
       return;
     }
     try{
-      await signInWithEmailAndPassword(auth, userData.email , formData.password);
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setLoginError("");
-          console.log(userData);
-          navigate('/home');
+      const validPassword = await bcryptjs.compare(userData.password, formData.password);
+      if(!validPassword){
+        await signInWithEmailAndPassword(auth, userData.email , userData.password);
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setLoginError("");
+            console.log(userData);
+            setIsLoading(false);
+            navigate('/home');
+          }
+          else{
+            console.log("No user is signed in");
+            setIsLoading(false);
+          }
         }
-        else{
-          console.log("No user is signed in");
-        }
+        );
       }
-      );
+      else{
+        setIsLoading(false);
+        setLoginError("Medical code or/and password incorrect");
+      }
     }
     catch (error) {
       console.error("Error signing in:", error);
+      setIsLoading(false);
       setLoginError("Medical code or/and password incorrect");
   }
   }
@@ -133,7 +147,7 @@ const Login = () => {
                 fullWidth
                 disabled={!isFormValid}
               >
-                Sign In
+                {isLoading ? <Loader color="violet" size="lg" type="dots" /> : 'Sign in'}
               </Button>
               
               <div className="login__form-links">

@@ -11,7 +11,7 @@ const Footer = () => {
                 <div className="footer-section social-media">
                     <h4>Follow Us</h4>
                     <a className="github" href="https://github.com/williamjesussierracordova/is3" target="_blank" rel="noopener noreferrer"><FaGithub style={{fontSize:'2.5rem'}}/></a>
-                    <a className="kaggle" href="https://www.kaggle.com/code/paultimothymooney/predicting-idc-in-breast-cancer-histology-images/input" target="_blank" rel="noopener noreferrer"><FaKaggle style={{fontSize:'2.5rem'}}/></a>
+                    <a className="kaggle" href="https://www.kaggle.com/code/paultimothymooney/predicting-idc-in-breast-cancer-histology-images/notebook" target="_blank" rel="noopener noreferrer"><FaKaggle style={{fontSize:'2.5rem'}}/></a>
                     <a className="colab" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><SiGooglecolab style={{fontSize:'2.5rem'}}/></a>
                 </div>
                 <div className="footer-section contact-info">

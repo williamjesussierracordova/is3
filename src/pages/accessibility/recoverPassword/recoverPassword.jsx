@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { getFirebaseAuth } from '../../../firebase/firebase';
+import { Loader } from '@mantine/core';
 const auth = getFirebaseAuth();
 const Login = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Login = () => {
 
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Verificar si todos los campos son válidos
@@ -53,14 +54,17 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try{
       // Aquí va el código para enviar el correo de recuperación de contraseña
       await sendPasswordResetEmail(auth, formData.email);
+      setIsLoading(false);
       alert('Email sent, if you do not receive it, check your spam folder');
       navigate('/');
     }
     catch(error){
       console.error(error);
+      setIsLoading(false);
       alert('An error occurred, please try again');
     }
   }
@@ -98,7 +102,7 @@ const Login = () => {
                 disabled={!isFormValid}
                 type="submit"
               >
-                Sent code
+                {isLoading ? <Loader color="violet" size="lg" type="dots" /> : 'Send'}
               </Button>
               <div className="login__form-links">
                 <p>So you have an acount? <a href="/">Sign in</a></p>

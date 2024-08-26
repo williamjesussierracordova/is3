@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { getFirebaseAuth } from '../../../firebase/firebase.js';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from '@mantine/core';
+import bcryptjs from 'bcryptjs';
 
 const auth = getFirebaseAuth();
 
@@ -23,6 +25,7 @@ const Signup = () => {
 
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Verificar si todos los campos son válidos
@@ -73,20 +76,25 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try{
-      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      writeUser(formData.medicalCode,formData.email,formData.password,'prueba','apellido1','apellido2',980312931);
+      let passwordEncrypted = bcryptjs.hashSync(formData.password, 10);
+      await createUserWithEmailAndPassword(auth, formData.email, passwordEncrypted);
+      writeUser(formData.medicalCode,formData.email,passwordEncrypted,'prueba','apellido1','apellido2',980312931);
       onAuthStateChanged(auth, (user) => {
         if (user) {
           console.log('Usuario creado');
+          setIsLoading(false);
           navigate('/');
         } else {
           console.log('Usuario no creado');
+          setIsLoading(false);
         }
       });
     }
     catch(error){
       console.error("Error creating user:" + error);
+      setIsLoading(false);
     }
   }
 
@@ -147,7 +155,7 @@ const Signup = () => {
                 fullWidth
                 disabled = {!isFormValid}
               >
-                Sign up
+                {isLoading ? <Loader color="violet" size="lg" type="dots" /> : 'Sign up'}
               </Button>
               <div className="login__form-links">
                 <p>Forgot your password? <a href="/recover_password">Click here</a></p>
