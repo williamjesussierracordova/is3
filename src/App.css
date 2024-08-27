@@ -43,7 +43,7 @@
 
 
 body {
-  --sb-track-color: #24e6cf;
+  --sb-track-color: white;
   --sb-thumb-color: #518ec4;
   --sb-size: 11px;
 }
@@ -54,7 +54,6 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-track {
   background: var(--sb-track-color);
-  border-radius: 8px;
 }
 
 body::-webkit-scrollbar-thumb {

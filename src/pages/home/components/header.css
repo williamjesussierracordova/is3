@@ -6,7 +6,11 @@
     padding: 1rem;
     background-color: #8b3333;
     color: #fff;
-    
+    padding-block: 0;
+    /* position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000;  */
 }
 
 .logo a {

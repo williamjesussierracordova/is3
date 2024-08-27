@@ -9,6 +9,7 @@ import { readPatient } from "../../../firebase/patientController";
 import { validateMedicalCode } from "../../validators/validator";
 import { Loader } from "@mantine/core";
 import { writeCases } from "../../../firebase/casesController";
+import { useTranslation } from "react-i18next";
 
 const Inicio = () => {
     const [file, setFile] = useState(null);
@@ -26,6 +27,7 @@ const Inicio = () => {
     const now = new Date();
     const date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
     const time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+    const {t} = useTranslation();
 
     const handleUpload = () => {
         setIsUploading(true);
@@ -97,38 +99,37 @@ const Inicio = () => {
             <Header />
             <div className="home-container">
                 <div className="home-header">
-                    <h1>Breast Cancer Detection</h1>
+                    <h1>{t('home:tittle')}</h1>
                     <p>
-                        This project aims to assist in the early detection of breast cancer
-                        through the analysis of mammograms using machine learning algorithms.
+                        {t('home:explain')}
                     </p>
                 </div>
                 <div className="home-content">
                     <div className="home-form">
-                        <h2>Patient Information</h2>
+                        <h2>{t('home:subtittle1')}</h2>
                         <form className="home-form-dni" onSubmit={handleSearch}>
-                            <Input.Wrapper label="Patient's ID" error={error} style={{marginBottom:'0.5rem'}}>
-                                <Input placeholder="Enter ID" value={patientID} onChange={handleChange} />
+                            <Input.Wrapper label={t('home:form:label')} error={error} style={{marginBottom:'0.5rem'}}>
+                                <Input placeholder={t('home:form:placeholder')} value={patientID} onChange={handleChange} />
                             </Input.Wrapper>
                             <Button type="submit" color="blue">
-                                {isLoading ? <Loader color="white" size="lg" type="dots" /> : "Search"}
+                                {isLoading ? <Loader color="white" size="lg" type="dots" /> : t('home:form:button')}
                             </Button>
                         </form>
                         <form className="home-form-info">
-                            <Input.Wrapper label="Patient's Details">
-                                <Input placeholder="Full Name" disabled  className="form-input" value={namePatient} />
-                                <Input placeholder="Age" disabled className="form-input" value={agePatient}/>
-                                <Input placeholder="Gender" disabled className="form-input" value={genderPatient}/>
-                                <Input placeholder="Phone" disabled className="form-input" value={phonePatient}/>
-                                <Input placeholder="Email" disabled className="form-input" value={emailPatient}/>
-                                <Input placeholder="patient's ID" disabled className="form-input" value={patientID2}/>
+                            <Input.Wrapper label={t('home:information:tittle')}>
+                                <Input placeholder={t('home:information:name')} disabled  className="form-input" value={namePatient} />
+                                <Input placeholder={t('home:information:age')} disabled className="form-input" value={agePatient}/>
+                                <Input placeholder={t('home:information:gender')} disabled className="form-input" value={genderPatient}/>
+                                <Input placeholder={t('home:information:phone')} disabled className="form-input" value={phonePatient}/>
+                                <Input placeholder={t('home:information:email')} disabled className="form-input" value={emailPatient}/>
+                                <Input placeholder={t('home:information:patientID')} disabled className="form-input" value={patientID2}/>
                             </Input.Wrapper>
                         </form>
                         <div className="home-form-upload">
                             <FileInput
                                 clearable
                                 accept="image/png,image/jpeg,image/webp,image/jpg"
-                                placeholder="Select file"
+                                placeholder={t("home:file")}
                                 radius="md"
                                 onChange={setFile}
                                 value={file}
@@ -137,7 +138,7 @@ const Inicio = () => {
                         </div>
                     </div>
                     <div className="home-preview">
-                        <h2>Image Preview</h2>
+                        <h2>{t("home:subtittle2")}</h2>
                         <div className="home-preview-image">
                             {file && (
                                 <img
@@ -147,12 +148,12 @@ const Inicio = () => {
                                 />
                             )}
                             {!file && (
-                                <p>No image selected</p>
+                                <p>{t("home:noimage")}</p>
                             )}
                         </div>
                         <div className="home-upload" style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center',marginTop:'2rem'}}>
                             <Button onClick={handleUpload} disabled={!file || !searchImage} style={{width:'100%'}}>
-                                {isUploading ? <Loader color="white" size="lg" type="dots" /> : "Upload"}
+                                {isUploading ? <Loader color="white" size="lg" type="dots" /> : t("home:upload")}	
                             </Button>
                         </div>
                     </div>

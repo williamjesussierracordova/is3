@@ -3,24 +3,26 @@ import { MdEmail, MdPhone, MdLocationOn, MdCode, MdHelpOutline } from 'react-ico
 import Header from '../home/components/header';
 import Footer from '../home/components/footer';
 import './contact.css';
+import { useTranslation } from 'react-i18next';
 
 const ContactPage = () => {
+  const {t} = useTranslation();
   return (
     <div className="contact-page">
       <Header />
       <Container size="lg" py="xl">
-        <Title order={1} align="center" mb="xl">Contact Information</Title>
+        <Title order={1} align="center" mb="xl">{t('contact:tittle')}</Title>
         
         <Grid gutter="xl">
           <Grid.Col xs={12} md={4}>
             <Card shadow="sm" p="lg">
-              <Title order={3} mb="md">Clinic Contact</Title>
+              <Title order={3} mb="md">{t('contact:contact1')}</Title>
               <Text><MdEmail size={18} /> info@breastcancerclinic.com</Text>
               <Text><MdPhone size={18} /> +1 (555) 123-4567</Text>
               <Text><MdLocationOn size={18} /> 123 Health Street, Medical City, MC 12345</Text>
               <a href='mailto:info@breastcancerclinic.com'>
               <Button variant="light" color="blue" fullWidth mt="md">
-                Contact Clinic
+                {t('contact:button1')}
               </Button>
               </a>
             </Card>
@@ -28,13 +30,13 @@ const ContactPage = () => {
           
           <Grid.Col xs={12} md={4}>
             <Card shadow="sm" p="lg">
-              <Title order={3} mb="md">Developers</Title>
-              <Text><MdCode size={18} /> Development Team</Text>
-              <Text>For inquiries related to the application's functionality:</Text>
+              <Title order={3} mb="md">{t('contact:contact2')}</Title>
+              <Text><MdCode size={18} /> {t('contact:c2subtittle')}</Text>
+              <Text>{t('contact:c2explain')}</Text>
               <Text><MdEmail size={18} /> dev@breastcancerapp.com</Text>
               <a href='mailto:dev@breastcancerapp.com'>
               <Button variant="light" color="cyan" fullWidth mt="md">
-                Contact Developers
+                {t('contact:button2')}
               </Button>
               </a>
             </Card>
@@ -42,14 +44,14 @@ const ContactPage = () => {
           
           <Grid.Col xs={12} md={4}>
             <Card shadow="sm" p="lg">
-              <Title order={3} mb="md">Technical Support</Title>
-              <Text><MdHelpOutline size={18} /> Help Desk</Text>
-              <Text>For technical issues or user support:</Text>
+              <Title order={3} mb="md">{t('contact:contact3')}</Title>
+              <Text><MdHelpOutline size={18} />{t('contact:c2subtittle')}</Text>
+              <Text>{t('contact:c2explain')}</Text>
               <Text><MdEmail size={18} /> support@breastcancerapp.com</Text>
               <Text><MdPhone size={18} /> +1 (555) 987-6543</Text>
               <a href='mailto:support@breastcancerapp.com'>
               <Button variant="light" color="green" fullWidth mt="md">
-                Get Support
+                {t('contact:button3')}
               </Button>
               </a>
             </Card>
