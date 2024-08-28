@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Title, Text, Space, List, ThemeIcon } from '@mantine/core';
 import { MdCheckCircle } from 'react-icons/md';
-import Header from '../home/components/header';
-import Footer from '../home/components/footer';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
 import './about.css';
 import { useTranslation } from 'react-i18next';
 

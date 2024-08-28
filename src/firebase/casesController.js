@@ -14,3 +14,12 @@ export function writeCases(caseID, patientID, doctorID, date, time, nameImage) {
     });
 }
 
+export async function readCases(caseID) {
+    const snapshot = await get(ref(db, 'cases/' + caseID));
+    if (snapshot.exists()) {
+        return snapshot.val();
+    } else {
+        return null;
+    }
+}
+

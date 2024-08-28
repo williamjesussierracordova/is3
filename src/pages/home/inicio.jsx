@@ -1,15 +1,17 @@
 import { useState } from "react";
-import Footer from "../components/footer";
-import Header from "../components/header";
+import Footer from "../../components/footer";
+import Header from "../../components/header";
 import { FileInput, Button, Input } from "@mantine/core";
-import { uploadImage } from "../../../firebase/imageController";
+import { uploadImage } from "../../firebase/imageController";
 import { v4 } from "uuid";
 import './inicio.css';
-import { readPatient } from "../../../firebase/patientController";
-import { validateMedicalCode } from "../../validators/validator";
+import { readPatient } from "../../firebase/patientController";
+import { validateMedicalCode } from "../validators/validator";
 import { Loader } from "@mantine/core";
-import { writeCases } from "../../../firebase/casesController";
+import { writeCases } from "../../firebase/casesController";
 import { useTranslation } from "react-i18next";
+import LoaderPage from "../loader/loader.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Inicio = () => {
     const [file, setFile] = useState(null);
@@ -24,29 +26,37 @@ const Inicio = () => {
     const [searchImage, setSearchImage] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
+    const [showLoadingPage, setShowLoadingPage] = useState(false);
     const now = new Date();
     const date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
     const time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const handleUpload = () => {
         setIsUploading(true);
-        try{
+        try {
             if (file) {
-                uploadImage(file, patientID2, file.name);
-                writeCases(v4(), patientID2, "11111111", date,time, file.name);
-                setIsUploading(false);
-                alert("Imagen subida correctamente.");
+                setShowLoadingPage(true); // Mostrar la página de carga
+                setTimeout(() => {
+                    uploadImage(file, patientID2, file.name);
+                    let code_case = v4();
+                    writeCases(code_case, patientID2, "11111111", date, time, file.name);
+                    setIsUploading(false);
+                    setShowLoadingPage(false); // Ocultar la página de carga después de 5 segundos
+                    alert("Imagen subida correctamente.");
+                    navigate(`/cases/${code_case}`);
+                }, 3000); // Pausa de 3 segundos
             } else {
                 setIsUploading(false);
                 alert("Por favor, selecciona un archivo primero.");
             }
-        }
-        catch(error){
+        } catch (error) {
             setIsUploading(false);
+            setShowLoadingPage(false); // Asegurarse de ocultar la página de carga en caso de error
             console.error(error);
         }
-    }
+    };
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -95,6 +105,9 @@ const Inicio = () => {
     };
 
     return (
+        <div>
+        {showLoadingPage ? <LoaderPage />
+        :   
         <div className="home">
             <Header />
             <div className="home-container">
@@ -160,6 +173,7 @@ const Inicio = () => {
                 </div>
             </div>
             <Footer />
+        </div>}
         </div>
     )
 }

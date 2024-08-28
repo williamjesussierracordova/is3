@@ -1,7 +1,7 @@
 import { Container, Title, Text, Grid, Card, Button } from '@mantine/core';
 import { MdEmail, MdPhone, MdLocationOn, MdCode, MdHelpOutline } from 'react-icons/md';
-import Header from '../home/components/header';
-import Footer from '../home/components/footer';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
 import './contact.css';
 import { useTranslation } from 'react-i18next';
 
