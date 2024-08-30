@@ -23,3 +23,52 @@ export async function readCases(caseID) {
     }
 }
 
+export async function readCasesByPatient(patientID) {
+    const casesRef = ref(db, 'cases');
+  
+    try {
+      const snapshot = await get(casesRef);
+      const allCases = snapshot.val();
+      
+      // Objeto para almacenar los casos coincidentes
+      const matchingCases = {};
+  
+      // Iterar sobre todos los casos
+      for (const [caseId, caseData] of Object.entries(allCases)) {
+        if (caseData.patientID === patientID) {
+          // Si el patientID coincide, guardar este caso
+          matchingCases[caseId] = caseData;
+        }
+      }
+  
+      return matchingCases;
+    } catch (error) {
+      console.error("Error al buscar el paciente:", error);
+      throw error;
+    }
+}
+
+export async function readCasesByDoctor(doctorID) {
+    const casesRef = ref(db, 'cases');
+  
+    try {
+      const snapshot = await get(casesRef);
+      const allCases = snapshot.val();
+      
+      // Objeto para almacenar los casos coincidentes
+      const matchingCases = {};
+  
+      // Iterar sobre todos los casos
+      for (const [caseId, caseData] of Object.entries(allCases)) {
+        if (caseData.doctorID === doctorID) {
+          // Si el doctorID coincide, guardar este caso
+          matchingCases[caseId] = caseData;
+        }
+      }
+  
+      return matchingCases;
+    } catch (error) {
+      console.error("Error al buscar el doctor:", error);
+      throw error;
+    }
+}

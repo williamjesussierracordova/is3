@@ -45,7 +45,7 @@ const Inicio = () => {
                     setIsUploading(false);
                     setShowLoadingPage(false); // Ocultar la página de carga después de 5 segundos
                     alert("Imagen subida correctamente.");
-                    navigate(`/cases/${code_case}`);
+                    navigate(`/case/${code_case}`);
                 }, 3000); // Pausa de 3 segundos
             } else {
                 setIsUploading(false);

@@ -6,8 +6,9 @@ import RecoverPassword from './pages/accessibility/recoverPassword/recoverPasswo
 import Home from './pages/home/inicio';
 import ContactPage from './pages/contact/contact';
 import AboutPage from './pages/about/about';
-import Cases from './pages/cases/cases';
-
+import Case from './pages/cases/cases';
+import Search from './pages/search/search';
+import Attentions from './pages/attention/attentions';
 function App() {
 
   return (
@@ -19,7 +20,9 @@ function App() {
         <Route path="/home" element={<Home/>}/>
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/about' element={<AboutPage />} />
-        <Route path='/cases/:idCase' element={<Cases />} />
+        <Route path='/case/:idCase' element={<Case />} />
+        <Route path='/search' element={<Search />} />
+        <Route path='/attention/:doctorID' element={<Attentions />} />
       </Routes>
     </>
   )

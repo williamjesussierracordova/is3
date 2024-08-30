@@ -15,7 +15,9 @@ i18n
         header:{
           "about":"Sobre Nosotros",
           "home":"Inicio",
-          "contact":"Contacto"
+          "contact":"Contacto",
+          "attentions":"Atenciones",
+          "search":"Buscar"
         },
         home:{
           "tittle":"Detección de Cáncer de Mama",
@@ -95,7 +97,9 @@ i18n
         header:{
             "about":"About it",
             "home":"Home",
-            "contact":"Contact"
+            "contact":"Contact",
+            "attentions":"Attentions",
+            "search":"Search"
         },
         home:{
           "tittle":"Breast Cancer Detection",
