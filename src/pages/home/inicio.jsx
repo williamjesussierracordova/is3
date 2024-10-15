@@ -33,20 +33,20 @@ const Inicio = () => {
     const {t} = useTranslation();
     const navigate = useNavigate();
 
-    const handleUpload = () => {
+    const handleUpload =  () => {
         setIsUploading(true);
         try {
             if (file) {
                 setShowLoadingPage(true); // Mostrar la página de carga
-                setTimeout(() => {
-                    uploadImage(file, patientID2, file.name);
+                setTimeout(async () =>  {
+                    await uploadImage(file, patientID2, file.name);
                     let code_case = v4();
-                    writeCases(code_case, patientID2, "11111111", date, time, file.name);
+                    await writeCases(code_case, patientID2, "11111111", date, time, file.name);
                     setIsUploading(false);
                     setShowLoadingPage(false); // Ocultar la página de carga después de 5 segundos
                     alert("Imagen subida correctamente.");
                     navigate(`/case/${code_case}`);
-                }, 3000); // Pausa de 3 segundos
+                }, 6000); // Pausa de 10 segundos
             } else {
                 setIsUploading(false);
                 alert("Por favor, selecciona un archivo primero.");

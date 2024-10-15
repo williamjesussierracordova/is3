@@ -1,15 +1,17 @@
 .attention-page{
     display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  max-width: 100vw;
-  padding-inline: 3rem;
+    flex-direction: column; 
+    min-height: 100vh;
+    max-width: 100vw;
+    padding-inline: 3rem;
+    padding-block: 3rem; 
 }
 
 .doctorAttentionsPage {
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100vw;
 }
 
 .doctorAttentionsPage h1 {
@@ -52,9 +54,6 @@
 }
 
 @media (max-width: 480px) {
-    .doctorAttentionsPage {
-        padding: 10px;
-    }
 
     .doctorAttentionsPage h1 {
         font-size: 1.2rem;

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Card, Text, Button, Pagination, Loader } from '@mantine/core';
+import { Card, Text, Button, Pagination, Loader } from '@mantine/core';
 import { readCasesByDoctor } from '../../firebase/casesController'; // Asegúrate de que la ruta sea correcta
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import './attentions.css'; // Asegúrate de crear este archivo CSS
+import { useTranslation } from 'react-i18next';
+import { BackgroundImage } from '@mantine/core';
 
 const Attentions = () => {
     const { doctorID } = useParams();
@@ -13,6 +15,7 @@ const Attentions = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     const ITEMS_PER_PAGE = 5;
+    const {t} = useTranslation()
 
     const searchAttentions = async () => {
         setIsLoading(true);
@@ -43,9 +46,17 @@ const Attentions = () => {
     return (
         <div className="doctorAttentionsPage">
             <Header />
+            <div className='image_back'>
+                    <BackgroundImage
+                        src="https://st.depositphotos.com/1907633/1838/i/950/depositphotos_18388775-stock-photo-doctor-with-a-stethoscope-in.jpg"
+                        style={{ height: 200, backgroundSize: 'cover' , 
+                        backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                         }}
+                    >
+                        <h1 style={{color:'white'}}>{t('attentions:tittle')}</h1>
+                    </BackgroundImage>
+                </div>
             <div className='attention-page' >
-                <h1>Atenciones del Doctor</h1>
-                <Text size="lg" mb="md">ID del Doctor: {doctorID}</Text>
                 {isLoading ? (
                     <Loader size="xl" className="centered-loader" />
                 ) : (
@@ -55,12 +66,12 @@ const Attentions = () => {
                                 {paginatedCases.map(([caseId, caseData]) => (
                                     <Card key={caseId} shadow="sm" padding="lg" radius="md" withBorder className="attention-card">
                                         <Card.Section withBorder inheritPadding py="xs">
-                                            <Text weight={500}>Caso: {caseId}</Text>
+                                            <Text weight={500}>{t("attentions:case")}: {caseId}</Text>
                                         </Card.Section>
-                                        <Text size="sm" mt="sm"><b>Fecha:</b> {caseData.date}</Text>
-                                        <Text size="sm"><b>Hora:</b> {caseData.time}</Text>
-                                        <Text size="sm"><b>ID del Paciente:</b> {caseData.patientID}</Text>
-                                        <Text size="sm"><b>Imagen:</b> {caseData.nameImage}</Text>
+                                        <Text size="sm" mt="sm"><b>{t("attentions:date")}:</b> {caseData.date}</Text>
+                                        <Text size="sm"><b>{t("attentions:time")}:</b> {caseData.time}</Text>
+                                        <Text size="sm"><b>{t("attentions:patient")}:</b> {caseData.patientID}</Text>
+                                        <Text size="sm"><b>{t("attentions:image")}:</b> {caseData.nameImage}</Text>
                                         <Button 
                                             variant="light" 
                                             color="blue" 
@@ -77,6 +88,8 @@ const Attentions = () => {
                                     total={Math.ceil(Object.keys(attentions).length / ITEMS_PER_PAGE)}
                                     page={currentPage}
                                     onChange={setCurrentPage}
+                                    boundaries={1}
+                                    siblings={1}
                                     mt="xl"
                                 />
                             </>
