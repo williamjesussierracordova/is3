@@ -13,6 +13,9 @@ import { readCasesByPatient } from "../../firebase/casesController";
 import axios from 'axios';
 import { Loader } from "@mantine/core";
 import { useTranslation } from "react-i18next";
+import { Alert } from '@mantine/core';
+import { GoAlertFill } from "react-icons/go";
+
 
 const Cases = () => {
     const { idCase } = useParams();
@@ -31,6 +34,8 @@ const Cases = () => {
     const [predictionLabel, setPredictionLabel] = useState(null);
     const [isLoadingCompare, setIsLoadingCompare] = useState(false);
     const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+    const [alert, setAlert] = useState(false);
+    
     const {t} = useTranslation();
 
     useEffect(() => {
@@ -49,7 +54,9 @@ const Cases = () => {
                     value: id,
                   }));
                 setCases(casesArray);
-                
+                if(data.predictionAccuracy >= 0.9 && data.predictionClass === 'Cancer'){
+                    setAlert(true);
+                }
             } catch (error) {
                 console.error("Error loading case data:", error);
             } finally {
@@ -100,7 +107,7 @@ const Cases = () => {
         }
 
         try{
-            const response = await axios.post('https://a927-38-25-10-179.ngrok-free.app/predict', {
+            const response = await axios.post('https://e06d-38-25-10-179.ngrok-free.app/predict', {
                 image_url: imageUrl,
         }, {
             headers: {
@@ -112,6 +119,9 @@ const Cases = () => {
             setPredictionResult(response.data.confidence);
             setPredictionLabel(response.data.prediction);
             updateCasePrediction(idCase, response.data.prediction, response.data.confidence);
+            if(response.data.confidence >= 0.9 && response.data.prediction === 'Cancer'){
+                setAlert(true);
+            }
         } catch (error) {
             console.error('Error with the prediction:', error);
         }
@@ -186,6 +196,13 @@ const Cases = () => {
                                     <Badge className="badge_pred" color="yellow" size="lg" mt="md" >{t('case:prediction')}: {predictionLabel=== undefined ? 'In Progress' : predictionLabel}</Badge> 
                                     <Badge className="badge_pred" color="blue" size="lg" mt="md">{t('case:accuracy')}: {predictionResult=== undefined ? 'In Progress' : predictionResult}</Badge> 
                                 </div>
+                                { 
+                                    alert &&
+                                    <Alert variant="filled" color="red" radius="lg" title={"Atención Inmediata"} icon={<GoAlertFill />}>
+                                        La predición indica un alto indice de cancer (mayor a 90%) por lo cual se recomienda una revisión inmediata.
+                                    </Alert>
+                                }
+                                
                                 {/* <Button color="blue" fullWidth radius={'lg'} onClick={prediction} >Predict Image with AI</Button> */}
                             </Card>
                         </Grid.Col>
