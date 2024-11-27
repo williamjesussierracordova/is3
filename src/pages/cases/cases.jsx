@@ -107,7 +107,7 @@ const Cases = () => {
         }
 
         try{
-            const response = await axios.post('https://e06d-38-25-10-179.ngrok-free.app/predict', {
+            const response = await axios.post('http://127.0.0.1:5000/predict', {
                 image_url: imageUrl,
         }, {
             headers: {

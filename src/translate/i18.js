@@ -20,8 +20,8 @@ i18n
           "search":"Buscar"
         },
         home:{
-          "tittle":"Detección de Cáncer de Mama",
-          "explain":"Este proyecto tiene como objetivo ayudar en la detección temprana del cáncer de mama a través del análisis de mamografías utilizando algoritmos de aprendizaje automático.",
+          "tittle":"CDI - Detección de Cáncer de Mama",
+          "explain":"Este proyecto tiene como objetivo ayudar en la detección temprana del cáncer de mama (CDI) a través del análisis de mamografías utilizando algoritmos de aprendizaje automático.",
           "subtittle1":"Información del paciente",
           form:{
             "label":"DNI del paciente",
@@ -149,8 +149,8 @@ i18n
             "search":"Search"
         },
         home:{
-          "tittle":"Breast Cancer Detection",
-          "explain":"This project aims to assist in the early detection of breast cancer through the analysis of mammograms using machine learning algorithms.",
+          "tittle":"IDC - Breast Cancer Detection",
+          "explain":"This project aims to assist in the early detection of breast cancer (IDC) through the analysis of mammograms using machine learning algorithms.",
           "subtittle1":"Patient Information",
           form:{
             "label":"Patient's ID",
